@@ -13,7 +13,6 @@ var _ = require('./utils')._;
 var utils = require('./utils');
 var schemes = require('./schemes/schemes.js');
 var formats = require('./formats/formats.js');
-var Buffer = require('buffer/').Buffer;
 
 if (typeof constants.RSA_NO_PADDING === "undefined") {
     //patch for node v0.10.x, constants do not defined
@@ -276,8 +275,6 @@ module.exports = (function () {
             var res = this.keyPair.encrypt(this.$getDataForEncrypt(buffer, source_encoding), usePrivate);
 
             if (encoding == 'buffer' || !encoding) {
-                if (!(res instanceof Uint8Array))
-                    res = Buffer.from(res);
                 return res;
             } else {
                 return res.toString(encoding);

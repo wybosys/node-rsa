@@ -258,7 +258,11 @@ module.exports.Key = (function () {
         for (var i = 0; i < buffersCount; i++) {
             offset = i * this.encryptedDataLength;
             length = offset + this.encryptedDataLength;
-            result.push(this.encryptEngine.decrypt(buffer.slice(offset, Math.min(length, buffer.length)), usePublic));
+
+            var buf = this.encryptEngine.decrypt(buffer.slice(offset, Math.min(length, buffer.length)), usePublic);
+            if (buf && !(buf instanceof Uint8Array) && !(buf instanceof Buffer))
+                buf = Buffer.from(buf);
+            result.push(buf);
         }
 
         return Buffer.concat(result);
