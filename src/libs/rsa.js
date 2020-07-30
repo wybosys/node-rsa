@@ -45,6 +45,7 @@ var BigInteger = require('./jsbn.js');
 var utils = require('../utils.js');
 var schemes = require('../schemes/schemes.js');
 var encryptEngines = require('../encryptEngines/encryptEngines.js');
+var Buffer = require('buffer/').Buffer;
 
 exports.BigInteger = BigInteger;
 module.exports.Key = (function () {
@@ -230,7 +231,10 @@ module.exports.Key = (function () {
         }
 
         for (var i = 0; i < buffers.length; i++) {
-            results.push(this.encryptEngine.encrypt(buffers[i], usePrivate));
+            var buf = this.encryptEngine.encrypt(buffers[i], usePrivate);
+            if (buf && !(buf instanceof Uint8Array) && !(buf instanceof Buffer))
+                buf = Buffer.from(buf);
+            results.push(buf);
         }
 
         return Buffer.concat(results);

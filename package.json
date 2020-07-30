@@ -1,6 +1,6 @@
 {
   "name": "node-rsa-b",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Node.js RSA library, 增加对buffer的保护, 继承于 rzcoder/node-rsa",
   "main": "src/NodeRSA.js",
   "scripts": {
